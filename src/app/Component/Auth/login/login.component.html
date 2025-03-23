@@ -1,0 +1,21 @@
+<div *ngIf="!isLoggedIn">
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" [(ngModel)]="form.username" required />
+      </div>
+      <div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" [(ngModel)]="form.password" required />
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  
+    <div *ngIf="isLoginFailed" class="error">
+      {{ errorMessage }}
+    </div>
+  </div>
+  
+  <div *ngIf="isLoggedIn">
+    <p>You are already logged in.</p>
+  </div>

@@ -1,0 +1,45 @@
+<section class="bg-white rounded-[5px] p-[34px]">
+    <div class="flex justify-between items-start">
+      <div>
+        <h2 class="text-[rgba(23,44,65,1)] text-lg font-medium">
+          Create Game
+        </h2>
+        <label class="text-[rgba(196,196,196,1)] text-[15px] block mt-8">
+          Game Type
+        </label>
+      </div>
+      <img
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/2f2a79ab92fde086d2c1306b091fac743206119749f81e4121a4268894567dc9?placeholderIfAbsent=true"
+        alt="Dropdown"
+        class="w-[13px] mt-[58px]"
+      />
+    </div>
+    <div class="border-b border-[rgba(226,230,232,1)] mt-2"></div>
+  
+    <form [formGroup]="gameForm" (ngSubmit)="onSubmit()" class="space-y-6 mt-6">
+      <div *ngFor="let field of fields">
+        <div class="flex justify-between items-center text-[15px] text-[rgba(196,196,196,1)]">
+          <label [for]="field.name">{{ field.label }}</label>
+          <img [src]="field.icon" alt="Dropdown" class="w-[13px]" />
+        </div>
+        <input
+          type="text"
+          [id]="field.name"
+          [formControlName]="field.name"
+          class="hidden"
+        />
+        <div class="border-b border-[rgba(226,230,232,1)] mt-2"></div>
+      </div>
+  
+      <button
+        type="submit"
+        class="w-full bg-[rgba(45,204,112,1)] text-white text-base py-[9px] rounded-sm"
+      >
+        Create Now
+      </button>
+    </form>
+  
+    <button class="text-[rgba(93,112,121,1)] text-sm block mx-auto mt-[22px]">
+      All My Games (3)
+    </button>
+  </section>

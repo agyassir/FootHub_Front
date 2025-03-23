@@ -1,0 +1,55 @@
+<div class="bg-white flex items-center justify-around px-6 py-[29px] rounded-[5px]">
+    <div class="flex items-center gap-[19px]">
+      <img
+        [src]="team1.image"
+        [alt]="team1.name"
+        class="w-[43px] rounded-full"
+      />
+      <span class="text-[rgba(149,159,168,1)] text-[17px]">
+        {{ team1.name }}
+      </span>
+      <span>{{Homescore}}</span>
+      
+    </div>
+    <div class="bg-white text-sm text-[rgba(23,44,65,1)] font-medium w-6 h-6 flex items-center justify-center rounded-full">
+      VS
+    </div>
+  
+    <div class="flex items-center gap-[19px]">
+      <span>{{Awayscore}}</span>
+      <span class="text-[rgba(149,159,168,1)] text-[17px]">
+        {{ team2.name }}
+      </span>
+      <img
+        [src]="team2.image"
+        [alt]="team2.name"
+        class="w-[43px] rounded-full"
+      />
+    </div>
+  
+    <div class="flex items-center gap-3 text-[17px] text-[rgba(149,159,168,1)]">
+      <img
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1eb2a82eda5e22d1681c16127dcf6be159aa776684fa5a71c41bd7e76c047d4f?placeholderIfAbsent=true"
+        alt="Clock"
+        class="w-6"
+      />
+      <span>{{ time }}</span>
+    </div>
+  
+    <div class="flex items-center gap-3 text-[17px] text-[rgba(149,159,168,1)]">
+      <img
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/ccc05561cea43ef3a4715b3c0a4681ab6b7cb9f768236f7297746ffcba270247?placeholderIfAbsent=true"
+        alt="Location"
+        class="w-6"
+      />
+      <span>{{ team1.stadium.name }}</span>
+    </div>
+    <button class="flex items-center gap-[5px] text-[17px] text-[rgba(149,159,168,1)]">
+      <span>View Details</span>
+      <img
+        src="https://cdn.builder.io/api/v1/image/assets/TEMP/a04a5c5d0511cb54eb103768846f4811831138bd4f936c3f9b27ee031b44f628?placeholderIfAbsent=true"
+        alt="Arrow"
+        class="w-6"
+      />
+    </button>
+  </div>
