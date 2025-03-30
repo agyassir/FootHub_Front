@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit {
     this.authService.login(username, password).subscribe({
       next: (user) => {
         // Handle successful login
+        console.log('an hna');
+        
         this.isLoggedIn = true;
         this.isLoginFailed = false;
         this.router.navigate(['/']); // Navigate to the dashboard or home page
@@ -43,5 +45,9 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = true;
       },
     });
+  }
+
+  navigateto(){
+    this.router.navigate(['/register'])
   }
 } 

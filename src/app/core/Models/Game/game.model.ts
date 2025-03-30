@@ -4,6 +4,7 @@ import { League } from "../League/league.model";
 export class Game {
     id: number;
     date: Date;
+    hour:Date;
     homeTeam: Club;
     awayTeam: Club;
     homeScore: number;
@@ -14,6 +15,7 @@ export class Game {
     constructor(
       id: number,
       date: Date,
+      hour:Date,
       homeTeam: Club,
       awayTeam: Club,
       homeScore: number,
@@ -29,6 +31,7 @@ export class Game {
       this.homeScore = homeScore;
       this.awayScore = awayScore;
       this.league=league;
-      this.status=status
+      this.status=status;
+      this.hour=hour;
     }
   }

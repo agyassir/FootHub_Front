@@ -5,6 +5,7 @@ import { Game } from '../../core/Models/Game/game.model';
 import { GameComponent } from "../game/game.component";
 import { ClubService } from '../../Service/Club/club.service';
 import { Club } from '../../core/Models/Club/club.model';
+import { Router } from '@angular/router';
 
 interface Team {
   img: string;
@@ -27,7 +28,7 @@ interface Player {
 export class SidebarComponent {
   TodayGames:Game[] | any =null;
   teams:Club[] | any=null;
-  constructor(private gameService : MatchService , private clubService: ClubService){}
+  constructor(private gameService : MatchService , private clubService: ClubService, public router:Router){}
 ngOnInit(): void {
   this.gameService.getTodaysGame().subscribe({
     next:(games:Game[])=>{
@@ -51,6 +52,10 @@ ngOnInit(): void {
 
   console.log(this.TodayGames);
 
+}
+
+navigateto(id:number){
+  this.router.navigate(['/club', id]);
 }
 
 

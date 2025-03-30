@@ -1,14 +1,14 @@
 <div class="bg-white flex items-center justify-around px-6 py-[29px] rounded-[5px]">
     <div class="flex items-center gap-[19px]">
       <img
-        [src]="team1.image"
-        [alt]="team1.name"
+        [src]="game.homeClubImage"
+        [alt]="game.homeClubName"
         class="w-[43px] rounded-full"
       />
       <span class="text-[rgba(149,159,168,1)] text-[17px]">
-        {{ team1.name }}
+        {{ game.homeClubName }}
       </span>
-      <span>{{Homescore}}</span>
+      <span>{{game.homeScore}}</span>
       
     </div>
     <div class="bg-white text-sm text-[rgba(23,44,65,1)] font-medium w-6 h-6 flex items-center justify-center rounded-full">
@@ -16,13 +16,13 @@
     </div>
   
     <div class="flex items-center gap-[19px]">
-      <span>{{Awayscore}}</span>
+      <span>{{game.awayScore}}</span>
       <span class="text-[rgba(149,159,168,1)] text-[17px]">
-        {{ team2.name }}
+        {{ game.awayClubName }}
       </span>
       <img
-        [src]="team2.image"
-        [alt]="team2.name"
+        [src]="game.awayClubImage"
+        [alt]="game.awayClubName"
         class="w-[43px] rounded-full"
       />
     </div>
@@ -33,7 +33,7 @@
         alt="Clock"
         class="w-6"
       />
-      <span>{{ time }}</span>
+      <span>{{ game.date }}</span>
     </div>
   
     <div class="flex items-center gap-3 text-[17px] text-[rgba(149,159,168,1)]">
@@ -42,7 +42,7 @@
         alt="Location"
         class="w-6"
       />
-      <span>{{ team1.stadium.name }}</span>
+      <span>{{ game.homeClubStadiumName }}</span>
     </div>
     <button class="flex items-center gap-[5px] text-[17px] text-[rgba(149,159,168,1)]">
       <span>View Details</span>

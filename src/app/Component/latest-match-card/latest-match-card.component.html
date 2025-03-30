@@ -93,11 +93,7 @@
   <div class="space-y-[13px]">
     <app-match-card
       *ngFor="let match of display"
-      [team1]="match.homeTeam"
-      [team2]="match.awayTeam"
-      [time]="match.date"
-      [Homescore]="match.homeScore"
-      [Awayscore]="match.awayScore"
+      [game]="match"
     ></app-match-card>
   </div>
 </section>

@@ -1,0 +1,21 @@
+<section class="mb-8">
+    <h2 class="text-xl font-bold text-green-800 mb-4">Transfer History</h2>
+    <div class="bg-white rounded-lg border border-green-100 p-4 shadow-sm">
+      <div class="relative pl-10 career-timeline">
+        <div class="space-y-6">
+          <div class="relative" *ngFor="let transfer of transfers">
+            <div class="timeline-dot top-1"></div>
+            <div class="mb-1">
+              <span class="text-sm font-semibold text-green-800">{{transfer.toClubName}}</span>
+              <span class="text-xs text-green-600 ml-2">{{transfer.transferDate | date:'yyyy'}}</span>
+            </div>
+            <p class="text-sm text-gray-700">Joined {{transfer.toClubName}} for a club-record fee of €{{transfer.price}} million from <b>{{transfer.fromClubName}}</b>.</p>
+            <div class="mt-2 flex items-center gap-2">
+              <span class="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">{{transfer.fromClubLeagueName}}</span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>

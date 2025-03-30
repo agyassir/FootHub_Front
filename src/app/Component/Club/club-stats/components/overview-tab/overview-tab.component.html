@@ -1,0 +1,148 @@
+<div class="container mx-auto p-4">
+  <!-- Club Info -->
+  <app-card class="mb-6 border-green-100" [title]="'Club Information'" [icon]="'info'">
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <p class="text-sm text-green-600">Founded</p>
+        <p class="font-medium text-green-900">{{ founded }}</p>
+      </div>
+      <div>
+        <p class="text-sm text-green-600">Manager</p>
+        <p class="font-medium text-green-900">{{ club.coachName }}</p>
+      </div>
+      <div>
+        <p class="text-sm text-green-600">Stadium</p>
+        <p class="font-medium text-green-900">{{ club.stadiumName }}</p>
+      </div>
+      <div>
+        <p class="text-sm text-green-600">Capacity</p>
+        <p class="font-medium text-green-900">{{ club.stadiumCapacity.toLocaleString() }}</p>
+      </div>
+    </div>
+  </app-card>
+
+  <!-- Season Stats -->
+  <app-card class="mb-6 border-green-100" [title]="'Season Statistics'" [icon]="'chart'">
+    <div class="mb-4 grid grid-cols-3 gap-2 text-center">
+      <div class="rounded-lg bg-green-50 p-3">
+        <p class="text-xs text-green-600">Matches</p>
+        <p class="text-xl font-bold text-green-800">{{ Stats.match_played }}</p>
+      </div>
+      <div class="rounded-lg bg-green-50 p-3">
+        <p class="text-xs text-green-600">Standing</p>
+        <p class="text-xl font-bold text-green-800">{{ Stats.standing }}</p>
+      </div>
+      <div class="rounded-lg bg-green-50 p-3">
+        <p class="text-xs text-green-600">Points</p>
+        <p class="text-xl font-bold text-green-800">{{ Stats.points }}</p>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <div>
+        <div class="mb-1 flex items-center justify-between">
+          <span class="text-sm text-green-700">Wins</span>
+          <span class="text-sm font-medium text-green-800">{{ getWinPercentage() }}%</span>
+        </div>
+        <app-progress-bar [value]="getWinPercentage()" [color]="'bg-green-600'"></app-progress-bar>
+      </div>
+      <div>
+        <div class="mb-1 flex items-center justify-between">
+          <span class="text-sm text-green-700">Draws</span>
+          <span class="text-sm font-medium text-green-800">{{ getDrawPercentage() }}%</span>
+        </div>
+        <app-progress-bar [value]="getDrawPercentage()" [color]="'bg-green-300'"></app-progress-bar>
+      </div>
+      <div>
+        <div class="mb-1 flex items-center justify-between">
+          <span class="text-sm text-green-700">Losses</span>
+          <span class="text-sm font-medium text-green-800">{{ getLossPercentage() }}%</span>
+        </div>
+        <app-progress-bar [value]="getLossPercentage()" [color]="'bg-white border border-green-600'"></app-progress-bar>
+      </div>
+    </div>
+
+    <div class="mt-6 grid grid-cols-2 gap-4">
+      <div class="rounded-lg border border-green-100 p-3 text-center">
+        <p class="text-xs text-green-600">Goals For</p>
+        <p class="text-xl font-bold text-green-800">{{ Stats.goalsFor }}</p>
+        <p class="text-xs text-green-600">{{ getGoalsPerMatch() }} per match</p>
+      </div>
+      <div class="rounded-lg border border-green-100 p-3 text-center">
+        <p class="text-xs text-green-600">Goals Against</p>
+        <p class="text-xl font-bold text-green-800">{{ Stats.goalsAgainst }}</p>
+        <p class="text-xs text-green-600">{{ getGoalsAgainstPerMatch() }} per match</p>
+      </div>
+    </div>
+  </app-card>
+
+  <!-- Next Match -->
+  <app-card class="border-green-100" [title]="'Next Match'" [icon]="'calendar'">
+    <div class="rounded-lg border border-green-100 p-4">
+      <div class="mb-3 flex items-center justify-between">
+        <div class="flex items-center gap-1 text-sm text-green-600">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+            <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+            <line x1="16" x2="16" y1="2" y2="6"></line>
+            <line x1="8" x2="8" y1="2" y2="6"></line>
+            <line x1="3" x2="21" y1="10" y2="10"></line>
+          </svg>
+          <span>{{ upcoming.date }}</span>
+          <span class="text-xs">•</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>{{ upcoming.hour }}</span>
+        </div>
+        <app-badge 
+          [text]="upcoming.homeClubName===club.name ? 'Home' : 'Away'" 
+          [variant]="'filled'"
+        ></app-badge>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <div class="flex flex-1 flex-col items-center">
+          <div class="mb-2 flex h-18 w-18 items-center justify-center rounded-full bg-green-50 p-1">
+            <div class="flex h-full w-full items-center justify-center rounded-full bg-green-600 text-white">
+              <img
+              [src]="upcoming.homeClubImage"
+              class="w-12 h-12"
+              >
+            </div>
+          </div>
+          <p class="text-center font-medium text-green-800">{{ upcoming.homeClubName }}</p>
+        </div>
+
+        <div class="mx-4 text-center">
+          <div class="mb-2 rounded-lg bg-green-50 px-3 py-1 text-sm font-medium text-green-800">VS</div>
+          <div class="flex items-center gap-1 text-xs text-green-600">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span>{{ upcoming.homeClubStadiumName }}</span>
+          </div>
+        </div>
+
+        <div class="flex flex-1 flex-col items-center">
+          <div class="mb-2 flex h-16 w-16 items-center justify-center rounded-full bg-green-50 p-1">
+            <div class="flex h-full w-full items-center justify-center rounded-full bg-white text-green-800">
+              <img
+              [src]="upcoming.awayClubImage"
+              >
+            </div>
+          </div>
+          <p class="text-center font-medium text-green-800">{{ upcoming.awayClubName }}</p>
+        </div>
+      </div>
+
+      <div class="mt-4 flex justify-center">
+        <button class="bg-green-600 text-white hover:bg-green-700 px-4 py-2 rounded-md">
+          Match Details
+        </button>
+      </div>
+    </div>
+  </app-card>
+</div>
+

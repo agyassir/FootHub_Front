@@ -23,7 +23,7 @@ export class ClubService {
   }
 
   // Fetch a single club by ID
-  getClubById(id: number): Observable<Club> {
+  getClubById(id: string|null): Observable<Club> {
     return this.http.get<Club>(`${this.apiUrl}/${id}`);
   }
 
@@ -54,6 +54,14 @@ export class ClubService {
 
   getHotClubs():Observable<Club[]>{
     return this.http.get<Club[]>(`${this.apiUrl}/hot`);
+  }
+
+  getFormClass(result: string): { bgColor: string; textColor: string } {
+    const bgColor =
+      result === "W" ? "bg-green-600" : result === "D" ? "bg-green-300" : "bg-white border border-green-600"
+    const textColor = result === "L" ? "text-green-800" : "text-white"
+
+    return { bgColor, textColor }
   }
 
 }

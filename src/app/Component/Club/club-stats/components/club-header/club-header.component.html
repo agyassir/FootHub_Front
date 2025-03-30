@@ -1,0 +1,46 @@
+<section class="bg-green-700 pb-4 pt-6 text-white">
+    <div class="container mx-auto px-4">
+      <div class="flex items-center gap-4">
+        <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white p-1">
+          
+           <img
+           [src]="club.image"
+           class="h-17 w-12"
+           />
+        
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold">{{ club.name }}</h1>
+          <div class="flex items-center gap-2 text-green-100">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
+              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+              <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+              <path d="M4 22h16"></path>
+              <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+              <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+              <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            <span>{{ club.leagueName }}</span>
+            <span class="text-xs">•</span>
+            <span>Position: {{club.leagueStandings[0].standing}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form indicators -->
+      <div class="mt-6 flex items-center justify-between">
+        <div class="flex items-center gap-1">
+            <!-- <div *ngFor="let result of clubDataService.clubData.form">
+              <div [class]="'flex h-6 w-6 items-center justify-center rounded-full ' + 
+                clubDataService.getFormClass(result).bgColor + ' ' + 
+                clubDataService.getFormClass(result).textColor + ' text-xs font-bold'">
+                {{ result }}
+              </div>
+            </div> -->
+        </div>
+        <div class="rounded-full bg-white px-3 py-1 text-sm font-bold text-green-800">
+          {{club.leagueStandings[0].points}} PTS
+        </div>
+      </div>
+    </div>
+  </section>

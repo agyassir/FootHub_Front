@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { LoginRequest } from '../../core/Models/Request/Auth/Login/login-request.model';
 import { User } from '../../core/Models/User/user';
+import { RegisterRequest } from '../../core/Models/Request/Auth/Register/register-request.model';
 
 
 @Injectable({
@@ -30,6 +31,18 @@ export class AuthService {
         localStorage.setItem('authToken', user.token);
         this.isAuthenticatedSubject.next(true); // Update authentication state
       }),
+    );
+  }
+
+  register(username: string, email: string, password: string): Observable<boolean> {
+    const request: RegisterRequest = { username, email, password };
+  
+    return this.http.post(`${this.api}/register`, request, { responseType: 'text' }).pipe(
+      map(() => true), // If successful, return true
+      catchError(error => {
+        console.error('Error:', error);
+        return of(false); // Return false if there's an error
+      })
     );
   }
 

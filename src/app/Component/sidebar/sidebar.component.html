@@ -15,7 +15,7 @@
       <!-- Teams List -->
       <div class="space-y-[22px] mt-[34px]">
         <div *ngFor="let team of teams; let i = index" class="flex w-full items-stretch gap-5 justify-between">
-          <div class="flex items-stretch gap-[17px] text-[17px] text-[rgba(149,159,168,1)]">
+          <div class="flex items-stretch gap-[17px] text-[17px] text-[rgba(149,159,168,1)]" (click)="navigateto(team.id)">
             <img
               [src]="team.image"
               [alt]="team.name"
@@ -23,20 +23,15 @@
             />
             <span class="my-auto">{{ team.name }}</span>
           </div>
-          <div *ngIf="i === 0" class="flex items-center gap-1.5 text-[13px] text-[rgba(45,204,112,1)]">
-            <span>See Profile</span>
+          <div  class="flex items-center gap-1.5 text-[13px] text-[rgba(45,204,112,1)]">
+           
             <img
               src="https://cdn.builder.io/api/v1/image/assets/TEMP/77eb4046fa205febe4327b0a31b921f967aabc3bc3f6c9a37f51eeb40be2ae1c?placeholderIfAbsent=true"
               alt="Arrow"
               class="w-[13px]"
             />
           </div>
-          <img
-            *ngIf="i !== 0"
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/5dcf154c82f794a8ec687e06c7477b9efcdb25dbae327cf9325c39353959d9da?placeholderIfAbsent=true"
-            alt="More"
-            class="w-5 my-auto"
-          />
+        
         </div>
       </div>
     </div>

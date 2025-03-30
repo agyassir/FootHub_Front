@@ -40,7 +40,7 @@ export class ProfileButtonComponent {
   }
   onRegister(): void {
     // Navigate to the login page
-    this.router.navigate(['/login']);
+    this.router.navigate(['/register']);
   }
 
   onLogout(): void {

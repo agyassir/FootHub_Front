@@ -44,6 +44,8 @@ export class LatestMatchesComponent {
     this.matchService.getTodaysGame().subscribe({
       next: (value: Game[]) => {
         this.matches = value;
+        console.log(value);
+        
         for (let i = 0; i < value.length; i++) {
           this.matches[i].date = this.datePipe.transform(
             new Date(value[i].date),
@@ -73,6 +75,8 @@ export class LatestMatchesComponent {
     if (this.selectedDate) {
       const isoDate = formatDate(this.selectedDate, 'yyyy-MM-dd', 'en-US');
       this.fetchGamesByDate(isoDate);
+      console.log(this.display);
+      
     }
   }
 
@@ -99,8 +103,10 @@ export class LatestMatchesComponent {
   onFiltered(){
     
     if (this.selectedLeague) {
-      console.log(this.matches[0].league.name==this.selectedLeague);
-      this.filteredGame = this.matches.filter((match:Game) => match.league.name == this.selectedLeague);
+      console.log(this.selectedLeague);
+      
+      console.log(this.matches[0].leagueName==this.selectedLeague);
+      this.filteredGame = this.matches.filter((match:any) => match.leagueName == this.selectedLeague);
       this.display=this.filteredGame;
      
     } else {

@@ -25,6 +25,12 @@ export class MatchService {
     );
   }
 
+  getUpcoming(id:string|null):Observable<Game>{
+    return this.http.get<Game>(`${this.apiUrl}/upcomingMatch/${id}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
   // Fetch a single match by ID
   getMatchById(id: number): Observable<Game> {
     return this.http.get<Game>(`${this.apiUrl}/${id}`).pipe(
@@ -56,6 +62,12 @@ export class MatchService {
   // Fetch matches for a specific home team
   getMatchesByHomeTeam(homeTeamId: number): Observable<Game[]> {
     return this.http.get<Game[]>(`${this.apiUrl}/home-team/${homeTeamId}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getMatchesByTeam(homeTeamId: string|null): Observable<Game[]> {
+    return this.http.get<Game[]>(`${this.apiUrl}/club/${homeTeamId}`).pipe(
       catchError(this.handleError)
     );
   }

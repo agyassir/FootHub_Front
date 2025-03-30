@@ -1,0 +1,22 @@
+<div class="min-h-screen w-[90vw] mt-2 flex bg-white">
+  <div class="z-10 flex w-full flex-col">
+  <!-- Header -->
+  <app-header></app-header>
+
+  <!-- Club Header -->
+  <app-club-header></app-club-header>
+
+  <!-- Tabs -->
+  <app-tabs [activeTab]="activeTab" (tabChange)="setActiveTab($event)"></app-tabs>
+
+  <!-- Tab Content -->
+  <ng-container [ngSwitch]="activeTab">
+    <app-matches-tab *ngSwitchCase="'matches'"></app-matches-tab>
+    <app-overview-tab *ngSwitchCase="'overview'"></app-overview-tab>  
+    <app-squad-tab *ngSwitchCase="'squad'"></app-squad-tab>
+    <app-table-tab *ngSwitchCase="'table'"></app-table-tab>
+  </ng-container>
+
+
+</div>
+</div>

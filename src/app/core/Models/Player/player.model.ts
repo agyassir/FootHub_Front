@@ -3,8 +3,8 @@ import { PlayerStat } from "../PlayerStat/player-stat";
 
 export class Player {
     id: number;
-    FirstName: string;
-    LastName: string;
+    firstName: string;
+    lastName: string;
     age:number;
     nationality:string;
     marketValue:number;
@@ -27,8 +27,8 @@ export class Player {
       stats: PlayerStat[]
     ) {
       this.id = id;
-      this.FirstName = FirstName;
-      this.LastName= Lastname;
+      this.firstName = FirstName;
+      this.lastName= Lastname;
       this.position = position;
       this.jerseyNumber = jerseyNumber;
       this.club = club;
