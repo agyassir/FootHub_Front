@@ -1,6 +1,5 @@
 import { Component } from "@angular/core"
 import { CommonModule } from "@angular/common"
-import type { ClubDataService } from "../../../Service/club-data.service" 
 import { HeaderComponent } from "./components/header/header.component"
 import { ClubHeaderComponent } from "./components/club-header/club-header.component"
 import { TabsComponent } from "./components/tabs/tabs.component"

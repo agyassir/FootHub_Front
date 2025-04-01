@@ -1,0 +1,14 @@
+<div class="flex min-h-screen bg-gray-50">
+    <!-- Sidebar - fixed width and position -->
+    <app-sidebar class="bg-white border-r border-gray-200 w-64 fixed inset-y-0 z-30 shadow-sm" />
+    
+    <!-- Main content area - needs to account for sidebar width -->
+    <div class="flex-1 ml-64"> <!-- Add margin-left equal to sidebar width -->
+      <app-navbar />
+      
+      <!-- Main content container -->
+      <main class="p-5 min-h-[calc(100vh-navbar-height)]"> <!-- Adjust padding and min-height as needed -->
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+  </div>

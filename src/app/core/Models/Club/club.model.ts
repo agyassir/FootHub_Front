@@ -9,13 +9,15 @@ export class Club {
     name: string;
     dateOfEstablishement: Date;
     owner: string;
-    image: string;
     stadium: Stadium;
     players: Player[];
     homeGames: Game[];
     awayGames: Game[];
-    league: League;
+    leagueName: string;
     leagueStandings:LeagueStanding[];
+    image?: File | string;
+    popularityScore:number;
+
   
     constructor(
       id: number,
@@ -23,11 +25,12 @@ export class Club {
       dateOfEstablishment: Date,
       owner: string,
       image: string,
+      popularityScore:number,
       stadium: Stadium,
       players: Player[],
       homeGames: Game[],
       awayGames: Game[],
-      league: League,
+      league: string,
       leagueStanding:LeagueStanding[],
     ) {
       this.id = id;
@@ -39,7 +42,8 @@ export class Club {
       this.players = players;
       this.homeGames = homeGames;
       this.awayGames = awayGames;
-      this.league = league;
+      this.leagueName = league;
       this.leagueStandings=leagueStanding
+      this.popularityScore=popularityScore;
     }
   }
