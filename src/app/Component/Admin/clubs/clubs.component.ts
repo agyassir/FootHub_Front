@@ -10,7 +10,7 @@ import { ClubService } from '../../../Service/Club/club.service';
 import { League } from '../../../core/Models/League/league.model';
 import { Club } from '../../../core/Models/Club/club.model';
 import { Page } from '../../../core/Models/Page/page';
-import { RouterLink } from '@angular/router';
+import { Route, Router, RouterLink } from '@angular/router';
 import { ClubCreateRequest } from '../../../core/Models/Request/Club/club-request.model';
 import { Observable } from 'rxjs';
 
@@ -87,8 +87,13 @@ export class ClubsComponent {
     this.loadClubs();
   }
 
+  navigate(link:string){
+    console.log(link);
+    this.router.navigate([link]);
+  }
 
-  constructor(private fb: FormBuilder,private stadiumService:StadiumService,private leagueService:LeagueService,private clubService:ClubService) {
+
+  constructor(private fb: FormBuilder,private stadiumService:StadiumService,private leagueService:LeagueService,private clubService:ClubService, private router:Router) {
     this.clubForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(100)]],
       dateOfEstablishment: ['', [Validators.required, DateValidator.pastOrPresent()]],

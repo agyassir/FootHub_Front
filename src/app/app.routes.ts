@@ -7,6 +7,7 @@ import { LayoutComponent } from './Component/layout/layout.component';
 import { PlayerProfileComponent } from './Component/player/player.component';
 import { ClubsComponent } from './Component/Admin/clubs/clubs.component';
 import { DashboardComponent } from './Component/dashboard/dashboard.component';
+import { EClubComponent } from './Component/Admin/Edit/club/club.component';
 
 export const routes: Routes = [
     
@@ -25,6 +26,10 @@ export const routes: Routes = [
           {
             path:'clubs',
             component:ClubsComponent  
+          },
+          {
+            path:'club/:id',
+            component:EClubComponent
           }
         ]
       },

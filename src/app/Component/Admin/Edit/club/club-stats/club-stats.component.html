@@ -1,0 +1,72 @@
+<div class="team-stats">
+    <h2 class="section-title">Team Statistics</h2>
+    <p class="section-subtitle">Current season performance metrics</p>
+  
+    <form class="stats-form">
+      <div class="stats-grid">
+        <!-- Basic Stats -->
+        <div class="stat-group">
+          <label class="form-label">League Position</label>
+          <input type="number" [(ngModel)]="teamStats.position" name="position" class="form-input" min="1">
+        </div>
+  
+        <div class="stat-group">
+          <label class="form-label">Points</label>
+          <input type="number" [(ngModel)]="teamStats.points" name="points" class="form-input" min="0">
+        </div>
+  
+        <div class="stat-group">
+          <label class="form-label">Matches Played</label>
+          <input type="number" [(ngModel)]="teamStats.matches" name="matches" class="form-input" min="0">
+        </div>
+  
+        <!-- Results -->
+        <div class="stat-group">
+          <label class="form-label">Wins</label>
+          <input type="number" [(ngModel)]="teamStats.wins" name="wins" class="form-input" min="0">
+        </div>
+  
+        <div class="stat-group">
+          <label class="form-label">Draws</label>
+          <input type="number" [(ngModel)]="teamStats.draws" name="draws" class="form-input" min="0">
+        </div>
+  
+        <div class="stat-group">
+          <label class="form-label">Losses</label>
+          <input type="number" [(ngModel)]="teamStats.losses" name="losses" class="form-input" min="0">
+        </div>
+  
+        <!-- Goals -->
+        <div class="stat-group">
+          <label class="form-label">Goals For</label>
+          <input type="number" [(ngModel)]="teamStats.goalsFor" name="goalsFor" class="form-input" min="0">
+        </div>
+  
+        <div class="stat-group">
+          <label class="form-label">Goals Against</label>
+          <input type="number" [(ngModel)]="teamStats.goalsAgainst" name="goalsAgainst" class="form-input" min="0">
+        </div>
+  
+        <div class="stat-group">
+          <label class="form-label">Clean Sheets</label>
+          <input type="number" [(ngModel)]="teamStats.cleanSheets" name="cleanSheets" class="form-input" min="0">
+        </div>
+      </div>
+  
+      <!-- Recent Form -->
+      <div class="form-section">
+        <label class="form-label">Recent Form (Last 5 Matches)</label>
+        <div class="form-indicator">
+          <select *ngFor="let result of teamStats.form; let i = index" 
+                  [(ngModel)]="teamStats.form[i]" 
+                  [name]="'formResult' + i"
+                  class="form-select">
+            <option *ngFor="let option of resultOptions" [value]="option">
+              {{ option }} ({{ option === 'W' ? 'Win' : option === 'D' ? 'Draw' : 'Loss' }})
+            </option>
+          </select>
+        </div>
+        <small class="form-hint">Most recent match first</small>
+      </div>
+    </form>
+  </div>

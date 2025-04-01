@@ -36,7 +36,7 @@ export function jwtInterceptor(
   const token = tokenService.getToken();
 
   if (token) {
-    // console.log(token);
+    console.log(token);
 
     return next(
       request.clone({

@@ -1,0 +1,227 @@
+<div class="club-info">
+  <h2 class="section-title">Club Information</h2>
+  <p class="section-subtitle">Edit basic information about the club</p>
+
+  <form class="club-form">
+    <!-- Club Logo -->
+    <div class="form-section">
+      <label class="form-label">Club Logo</label>
+
+      <!-- Logo Preview -->
+      <div *ngIf="logoPreview" class="mb-4 flex justify-center">
+        <div class="relative h-32 w-32 rounded-full border-2 border-gray-300">
+          <img
+            [src]="logoPreview"
+            alt="Club Logo Preview"
+            class="h-full w-full rounded-full object-cover"
+          />
+          <button
+            (click)="logoPreview = null; selectedFile = null"
+            class="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dropzone -->
+      <label
+        class="flex cursor-pointer appearance-none justify-center rounded-md border border-dashed transition"
+        [class.border-gray-300]="!isDragging"
+        [class.border-blue-600]="isDragging"
+        [class.bg-white]="!isDragging"
+        [class.bg-blue-50]="isDragging"
+        (dragover)="handleDragOver($event)"
+        (dragleave)="handleDragLeave($event)"
+        (drop)="handleFileSelect($event)"
+        tabindex="0"
+      >
+        <div class="px-3 py-6 text-center">
+          <span class="flex items-center justify-center space-x-2">
+            <svg class="h-6 w-6 stroke-gray-400" viewBox="0 0 256 256">
+              <path
+                d="M96,208H72A56,56,0,0,1,72,96a57.5,57.5,0,0,1,13.9,1.7"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="24"
+              ></path>
+              <path
+                d="M80,128a80,80,0,1,1,144,48"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="24"
+              ></path>
+              <polyline
+                points="118.1 161.9 152 128 185.9 161.9"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="24"
+              ></polyline>
+              <line
+                x1="152"
+                y1="208"
+                x2="152"
+                y2="128"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="24"
+              ></line>
+            </svg>
+          </span>
+          <span class="text-xs font-medium text-gray-600">
+            Drag and drop your logo here, or
+            <span class="text-blue-600 underline">browse</span>
+          </span>
+          <input
+            id="photo-dropbox"
+            type="file"
+            class="sr-only"
+            (change)="handleFileSelect($event)"
+            accept="image/jpeg,image/png,image/gif,image/svg+xml"
+          />
+        </div>
+      </label>
+
+      <!-- Upload button -->
+      <div class="mt-4 flex justify-end" *ngIf="selectedFile">
+        <button
+          (click)="uploadLogo()"
+          class="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+        >
+          Upload Logo
+        </button>
+      </div>
+      <div *ngIf="isUploading" class="mt-4">
+        <div class="mb-1 flex justify-between text-sm">
+          <span class="text-gray-600">Uploading...</span>
+          <span class="font-medium">{{ uploadProgress }}%</span>
+        </div>
+        <div class="h-2 w-full rounded-full bg-gray-200">
+          <div
+            class="h-2 rounded-full bg-green-600"
+            [style.width.%]="uploadProgress"
+          ></div>
+        </div>
+      </div>
+
+      <div *ngIf="uploadError" class="mt-4 rounded-md bg-red-50 p-4">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-red-400"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-red-800">Upload failed</h3>
+            <div class="mt-2 text-sm text-red-700">
+              <p>{{ uploadError }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Club Details -->
+    <div class="grid-form">
+      <div class="form-group">
+        <label for="club-name" class="form-label">Club Name</label>
+        <input
+          type="text"
+          id="club-name"
+          [(ngModel)]="clubInfo.name"
+          name="club-name"
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="club-manager" class="form-label">Club Owner</label>
+        <input
+          type="text"
+          id="club-manager"
+          [(ngModel)]="clubInfo.owner"
+          name="club-owner"
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="club-founded" class="form-label">Founded</label>
+        <input
+          type="date"
+          id="club-founded"
+          [(ngModel)]="clubInfo.founded"
+          name="club-founded"
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="club-stadium" class="form-label">Club Stadium</label>
+        <select
+          id="club-stadium"
+          [(ngModel)]="clubInfo.stadium"
+          name="club-stadium"
+          class="form-input"
+        >
+          <option *ngFor="let league of stadiums" class="text-black" [value]="league.id" [selected]="league.name===clubInfo.stadium">
+            {{ league.name }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="club-stadium" class="form-label">Club popularityScore </label>
+        <input
+          type="number"
+          id="club-popularity"
+          [(ngModel)]="clubInfo.popularityScore"
+          name="club-popularityScore"
+          class="form-input"
+        />
+      </div>
+      <div class="form-group">
+        <label for="club-league" class="form-label">Club league</label>
+        <select
+          id="club-league"
+          [(ngModel)]="clubInfo.league"
+          name="club-league"
+          class="form-input"
+        >
+          <option *ngFor="let league of leagues" class="text-black" [value]="league.id" [selected]="league.name===clubInfo.league">
+            {{ league.name }}
+          </option>
+        </select>
+      </div>
+     
+      <div class="action-buttons flex gap-3">
+        <button class="cancel-button form-group" (click)="onCancel()">
+          Cancel
+        </button>
+        <button type="submit" class="save-button form-group" (click)="onSave()">
+          Save Changes
+        </button>
+      </div>
+      <!-- Other form fields similarly -->
+    </div>
+  </form>
+</div>

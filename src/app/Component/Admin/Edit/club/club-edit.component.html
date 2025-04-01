@@ -1,0 +1,41 @@
+<div class="club-edit-container">
+    <!-- Header -->
+    <header class="edit-header">
+      <div class="header-content">
+        <div class="header-left">
+          <a routerLink="/admin-dashboard" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+          </a>
+          <h1>Edit Club</h1>
+        </div>
+        <div class="header-right">
+          <button class="menu-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+  
+    <!-- Main Content with Tabs -->
+    <main class="edit-content">
+      <nav class="edit-tabs">
+        <button [class]="'tab-button  '+(activeTab ==='info'?'active':' ')" (click)="activeTab = 'info'">Club Info</button>
+        <button [class]="'tab-button '+(activeTab ==='stats'?'active':' ')" (click)="activeTab = 'stats'">Statistics</button>
+        <button [class]="'tab-button '+(activeTab ==='stadium'?'active':' ')" (click)="activeTab = 'stadium'">Stadium</button>
+        <button [class]="'tab-button '+(activeTab ==='matches'?'active':' ')" (click)="activeTab = 'matches'">Matches</button>
+      </nav>
+  
+      <div class="tab-content w-[80vw]">
+        <app-club-info *ngIf="activeTab === 'info'"></app-club-info>
+        <app-club-stats *ngIf="activeTab === 'stats'"></app-club-stats>
+        <app-club-stadium *ngIf="activeTab === 'stadium'"></app-club-stadium>
+        <app-upcoming-matches *ngIf="activeTab === 'matches'"></app-upcoming-matches>
+      </div>
+    </main>
+  
+    
+  </div>

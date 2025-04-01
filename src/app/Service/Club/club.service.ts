@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { Club } from '../../core/Models/Club/club.model';
 import { Stadium } from '../../core/Models/Stadium/stadium.model';
@@ -92,8 +92,23 @@ export class ClubService {
     )
   }
 
+  uploadClubLogo(clubId: string|null, file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    console.log(formData.getAll);
+    
+
+    return this.http.post(`${this.apiUrl}/${clubId}/image`, formData).pipe(
+      catchError(error => {
+        console.error('Upload error:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
   // Update an existing club
-  updateClub(id: number, club: Club): Observable<Club> {
+  updateClub(id: number, club: ClubCreateRequest): Observable<Club> {
     return this.http.put<Club>(`${this.apiUrl}/${id}`, club);
   }
 

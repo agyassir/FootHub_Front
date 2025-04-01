@@ -1,0 +1,67 @@
+<div class="upcoming-matches">
+    <h2 class="section-title">Upcoming Matches</h2>
+    <p class="section-subtitle">Scheduled fixtures and tournaments</p>
+  
+    <div class="matches-header">
+      <button type="button" class="add-match-button" (click)="addMatch()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        Add New Match
+      </button>
+    </div>
+  
+    <div class="matches-list">
+      <div class="match-card" *ngFor="let match of upcomingMatches; let i = index">
+        <div class="match-header">
+          <h3 class="match-title">
+            {{ match.location === 'home' ? 'Green City FC' : match.opponent }} 
+            vs 
+            {{ match.location === 'home' ? match.opponent : 'Green City FC' }}
+          </h3>
+          <button type="button" class="delete-match" (click)="deleteMatch(i)">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+            </svg>
+          </button>
+        </div>
+  
+        <div class="match-details">
+          <div class="detail-group">
+            <label class="detail-label">Date</label>
+            <input type="date" [(ngModel)]="match.date" [name]="'date' + i" class="detail-input">
+          </div>
+  
+          <div class="detail-group">
+            <label class="detail-label">Time</label>
+            <input type="time" [(ngModel)]="match.time" [name]="'time' + i" class="detail-input">
+          </div>
+  
+          <div class="detail-group">
+            <label class="detail-label">Location</label>
+            <select [(ngModel)]="match.location" [name]="'location' + i" class="detail-select">
+              <option value="home">Home</option>
+              <option value="away">Away</option>
+            </select>
+          </div>
+  
+          <div class="detail-group">
+            <label class="detail-label">Opponent</label>
+            <input type="text" [(ngModel)]="match.opponent" [name]="'opponent' + i" class="detail-input">
+          </div>
+  
+          <div class="detail-group">
+            <label class="detail-label">Competition</label>
+            <select [(ngModel)]="match.competition" [name]="'competition' + i" class="detail-select">
+              <option *ngFor="let comp of competitionOptions" [value]="comp">{{comp}}</option>
+            </select>
+          </div>
+  
+          <div class="detail-group">
+            <label class="detail-label">Stadium</label>
+            <input type="text" [(ngModel)]="match.stadium" [name]="'stadium' + i" class="detail-input">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

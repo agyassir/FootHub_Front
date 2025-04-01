@@ -9,7 +9,7 @@ export class Club {
     name: string;
     dateOfEstablishement: Date;
     owner: string;
-    stadium: Stadium;
+    stadiumName: string;
     players: Player[];
     homeGames: Game[];
     awayGames: Game[];
@@ -26,7 +26,7 @@ export class Club {
       owner: string,
       image: string,
       popularityScore:number,
-      stadium: Stadium,
+      stadium: string,
       players: Player[],
       homeGames: Game[],
       awayGames: Game[],
@@ -38,7 +38,7 @@ export class Club {
       this.dateOfEstablishement = dateOfEstablishment;
       this.owner = owner;
       this.image = image;
-      this.stadium = stadium;
+      this.stadiumName = stadium;
       this.players = players;
       this.homeGames = homeGames;
       this.awayGames = awayGames;
