@@ -1,72 +1,96 @@
-<div class="team-stats">
-    <h2 class="section-title">Team Statistics</h2>
-    <p class="section-subtitle">Current season performance metrics</p>
-  
-    <form class="stats-form">
+<div class="team-stats" >
+  <div class="flex justify-between mb-3">
+    <div>
+      <h2 class="section-title">Team Statistics</h2>
+      <p class="section-subtitle">Current season performance metrics</p>
+    </div>
+  </div>
+  <div *ngIf="stats !== null && stats.length === 0" class="no-stats-message">
+      <button class="btn btn-primary rounded-xl" (click)="addStats()">Add Statistics</button>
+      <p>There are no statistics available for this club yet.</p>
+    </div>
+
+    <form [formGroup]="statsForm" *ngIf="stats !== null && stats.length !== 0" class="stats-form mb-2 border border-gray-200 rounded-xl p-2" (ngSubmit)="saveStats()">
       <div class="stats-grid">
         <!-- Basic Stats -->
         <div class="stat-group">
           <label class="form-label">League Position</label>
-          <input type="number" [(ngModel)]="teamStats.position" name="position" class="form-input" min="1">
+          <input formControlName="standing" type="number" class="form-input" min="1">
+          <div *ngIf="statsForm.get('standing')?.invalid && statsForm.get('standing')?.touched" class="text-red-500 text-sm">
+            Position is required and must be at least 1
+          </div>
         </div>
-  
+    
         <div class="stat-group">
           <label class="form-label">Points</label>
-          <input type="number" [(ngModel)]="teamStats.points" name="points" class="form-input" min="0">
+          <input formControlName="points" type="number" class="form-input" min="0">
+          <div *ngIf="statsForm.get('points')?.invalid && statsForm.get('points')?.touched" class="text-red-500 text-sm">
+            Points must be a positive number
+          </div>
         </div>
-  
+    
+        <div class="stat-group">
+          <label class="form-label">Season</label>
+          <input type="text" [value]="stats[0]?.leagueSeason?.season || '24-25'" class="form-input" disabled>
+        </div>
+    
         <div class="stat-group">
           <label class="form-label">Matches Played</label>
-          <input type="number" [(ngModel)]="teamStats.matches" name="matches" class="form-input" min="0">
+          <input formControlName="match_played" type="number" class="form-input" min="0">
+          <div *ngIf="statsForm.get('match_played')?.invalid && statsForm.get('match_played')?.touched" class="text-red-500 text-sm">
+            Matches played must be a positive number
+          </div>
         </div>
-  
+        
         <!-- Results -->
         <div class="stat-group">
           <label class="form-label">Wins</label>
-          <input type="number" [(ngModel)]="teamStats.wins" name="wins" class="form-input" min="0">
+          <input formControlName="win" type="number" class="form-input" min="0">
         </div>
-  
+        
         <div class="stat-group">
           <label class="form-label">Draws</label>
-          <input type="number" [(ngModel)]="teamStats.draws" name="draws" class="form-input" min="0">
+          <input formControlName="draw" type="number" class="form-input" min="0">
         </div>
-  
+        
         <div class="stat-group">
           <label class="form-label">Losses</label>
-          <input type="number" [(ngModel)]="teamStats.losses" name="losses" class="form-input" min="0">
+          <input formControlName="loss" type="number" class="form-input" min="0">
+        </div>
+        
+        <div class="flex gap-4 justify-center mt-6">
+          <button 
+            type="submit" 
+            class="px-1 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg shadow-md transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:ring-opacity-75"
+            [disabled]="statsForm.invalid"
+          >
+            <span class="flex items-center justify-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              Save Stats
+            </span>
+          </button>
+        
+          <!-- Cancel Button -->
+          <!-- <button 
+            type="button" 
+            (click)="cancelStats()"
+            class="px-6 py-3 bg-rose-500 hover:bg-rose-600 text-white font-semibold rounded-lg shadow-md transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-opacity-75"
+          >
+            <span class="flex items-center justify-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+              Cancel
+            </span>
+          </button> -->
         </div>
   
-        <!-- Goals -->
-        <div class="stat-group">
-          <label class="form-label">Goals For</label>
-          <input type="number" [(ngModel)]="teamStats.goalsFor" name="goalsFor" class="form-input" min="0">
-        </div>
-  
-        <div class="stat-group">
-          <label class="form-label">Goals Against</label>
-          <input type="number" [(ngModel)]="teamStats.goalsAgainst" name="goalsAgainst" class="form-input" min="0">
-        </div>
-  
-        <div class="stat-group">
-          <label class="form-label">Clean Sheets</label>
-          <input type="number" [(ngModel)]="teamStats.cleanSheets" name="cleanSheets" class="form-input" min="0">
-        </div>
+    
       </div>
   
-      <!-- Recent Form -->
-      <div class="form-section">
-        <label class="form-label">Recent Form (Last 5 Matches)</label>
-        <div class="form-indicator">
-          <select *ngFor="let result of teamStats.form; let i = index" 
-                  [(ngModel)]="teamStats.form[i]" 
-                  [name]="'formResult' + i"
-                  class="form-select">
-            <option *ngFor="let option of resultOptions" [value]="option">
-              {{ option }} ({{ option === 'W' ? 'Win' : option === 'D' ? 'Draw' : 'Loss' }})
-            </option>
-          </select>
-        </div>
-        <small class="form-hint">Most recent match first</small>
-      </div>
+ 
+      
     </form>
   </div>

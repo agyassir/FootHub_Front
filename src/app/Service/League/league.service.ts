@@ -19,7 +19,7 @@ private handleError(error: HttpErrorResponse) {
   getLeagues():Observable<League[]>{
     return this.http.get<League[]>(`${this.apiUrl}`)
   }
-  getLeagueStanding(id:number):Observable<LeagueStanding[]>{
+  getLeagueStanding(id:string|null):Observable<LeagueStanding[]>{
     return this.http.get<LeagueStanding[]>(`${this.apiUrl}/standing/${id}`).pipe(
       catchError(this.handleError)
     )
