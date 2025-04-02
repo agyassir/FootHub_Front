@@ -57,6 +57,21 @@ export class AuthService {
     return this.isAuthenticatedSubject.value;
   }
 
+  isAdmin(): Observable<boolean> {
+    return this.getUser().pipe(
+      map((user: User | null) => {
+        // Check if user exists and has admin role
+        return !!user?.roles?.some(role => role.name === 'ROLE_ADMIN');
+      }),
+      catchError((error) => {
+        console.error('Error checking admin status:', error);
+        return of(false); // Return false on error
+      })
+    );
+  }
+
+
+
   // Method to get the current authentication token
   getToken(): string | null {
     return localStorage.getItem('authToken');

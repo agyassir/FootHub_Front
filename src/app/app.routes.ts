@@ -8,12 +8,14 @@ import { PlayerProfileComponent } from './Component/player/player.component';
 import { ClubsComponent } from './Component/Admin/clubs/clubs.component';
 import { DashboardComponent } from './Component/dashboard/dashboard.component';
 import { EClubComponent } from './Component/Admin/Edit/club/club.component';
+import { AdminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
     
       {
         path: 'login',
-        component:LoginComponent
+        component:LoginComponent,
+        
       },
       {
         path: 'register',
@@ -22,6 +24,7 @@ export const routes: Routes = [
       {
         path:'dashboard',
         component:Admin,
+        canActivate:[AdminGuard],
         children:[
           {
             path:'clubs',
